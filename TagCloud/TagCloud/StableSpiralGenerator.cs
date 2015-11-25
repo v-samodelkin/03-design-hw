@@ -18,6 +18,8 @@ namespace TagCloud
             A = a;
             Delta = delta;
         }
+
+        // Этот метод тоже надо было сделать более читаемым
         public IEnumerable<Point> GetPoints()
         {
             double alpha = 0;

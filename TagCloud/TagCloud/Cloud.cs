@@ -54,6 +54,7 @@ namespace TagCloud
             return new SolidBrush(BrushColor);
         }
 
+        // метод лучше разбить на кусочки помельче и более читаемые  
         public void GenerateImage() {
             foreach (var word in Statistic)
             {
