@@ -12,7 +12,7 @@ namespace TagCloud
         [Inject]
         public IPointGenerator Generator { get; set; }
         [Inject]
-        public IData Data { get; set; }
+        public IDataReader DataReader { get; set; }
         [Inject]
         public IGraphicModule GraphicModule { get; set; }
         [Inject]
@@ -29,7 +29,7 @@ namespace TagCloud
         }
 
         public void GenerateImage() {
-            foreach (var word in Data.Data)
+            foreach (var word in DataReader.ClearData().Data)
             {
                 Font font = FontGenerator.GetFont(word);
                 var wordSizes = GraphicModule.Graphics.MeasureString(word.Value, font);

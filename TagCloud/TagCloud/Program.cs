@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Drawing;
 using Ninject;
+using TagCloud.Properties;
+
 namespace TagCloud
 {
     class Program
@@ -16,41 +18,30 @@ namespace TagCloud
             cloud.GenerateImage();
             cloud.Build();
 
-            DebugData(kernel.Get<IData>());
+            DebugData(kernel.Get<IDataReader>().ClearData());
         }
 
 
         private static IKernel CreateKernel(Options options)
         {
             var kernel = new StandardKernel();
-            // я не вижу проблем удалить метод RegisterServices и вставить его тело сюда
-            // вынесение регистраций в отдельный метод не влияет на что либо (на удобство чтения в том числе)
-            RegisterServices(kernel, options);
-            return kernel;
-        }
 
-        private static void RegisterServices(IKernel kernel, Options options)
-        {
             kernel.Bind<Options>().ToConstant(options);
             kernel.Bind<IDataReader>().To<TxtFileReader>();
             kernel.Bind<IPointGenerator>().ToConstant(options.Generator);
             kernel.Bind<IFontGenerator>().ToConstant(GetFontGenerator(options));
             kernel.Bind<ISaveModule>().ToConstant(new PngSaveModule(ImagePath));
-
-            // мне кажется биндить данные на IData плохо, данные ты должен получать из модуля 
-            // IDataReader внутри ICloudBuilder (то есть в его реализации GraphicCloudBuilder)
-            kernel.Bind<IData>().ToConstant(kernel.Get<IDataReader>().ClearData());
-            // да и таким образом ты устранишь спорный вызов kernel.Get<IDataReader>()
-
             kernel.Bind<IGraphicModule>().To<DefaultGraphicModule>();
             kernel.Bind<ICloudBuilder>().To<GraphicCloudBuilder>();
+
+            return kernel;
         }
 
         private static void DebugData(IData data)
         {
             foreach (var a in data.Data)
             {
-                Console.WriteLine("{0} : {1}", a.Value, a.Count);
+                Console.WriteLine(Resources.Program_Main__0_____1_, a.Value, a.Count);
             }
         }
 

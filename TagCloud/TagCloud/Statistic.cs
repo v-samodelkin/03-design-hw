@@ -13,6 +13,5 @@ namespace TagCloud
         {
             Data = data;
         }
-        
     }
 }

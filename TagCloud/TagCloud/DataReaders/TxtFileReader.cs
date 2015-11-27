@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ninject;
+﻿using Ninject;
 
 namespace TagCloud
 {
@@ -12,13 +7,24 @@ namespace TagCloud
         [Inject]
         public Options options { get; set; }
 
+        private string _text;
+
+        private void Load()
+        {
+            _text = System.IO.File.ReadAllText(options.InputFile);
+        }
+
         public string RawData()
         {
-            return System.IO.File.ReadAllText(options.InputFile);
+            if (_text == null)
+                Load();
+            return _text;
         }
 
         public IData ClearData()
         {
+            if (_text == null)
+                Load();
             var text = new Text(RawData());
             return text.Statistic(options.PreLoad);
         }

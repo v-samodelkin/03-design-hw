@@ -25,9 +25,7 @@ namespace TagCloud
         public int Height { get; set; }
         public bool Log { get; set; }
         public int MultipleSize { get; set; }
-
         public string FontFamilyName { get; set; }
-
         public Func<String, String> PreLoad { get; set; }
 
         public void AddToPreLoad(Func<String, String> addToPreLoad)
@@ -43,7 +41,6 @@ namespace TagCloud
             else
                 FontFamilyName += " " + s;
         }
-
       }
    
 }

@@ -11,7 +11,6 @@ namespace TagCloud
             InitByPoints(a, b);
         }
 
-
         public Rectangle(Point center, double width, double height)
         {
             double w2 = width/2;
