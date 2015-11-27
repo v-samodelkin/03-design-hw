@@ -10,6 +10,7 @@ namespace TagCloud
         public int Height { get; set; }
         public Color BrushColor { get; set; }
         public Color FontColor { get; set; }
+
         public DefaultGraphicModule(Options options)
         {
             Width = options.Width;

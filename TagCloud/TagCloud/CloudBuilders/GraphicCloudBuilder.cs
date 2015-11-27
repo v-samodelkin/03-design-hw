@@ -17,6 +17,7 @@ namespace TagCloud
         public IGraphicModule GraphicModule { get; set; }
         [Inject]
         public ISaveModule SaveModule { get; set; }
+
         public GraphicCloudBuilder()
         {
             Rectangles = new List<Rectangle>();    

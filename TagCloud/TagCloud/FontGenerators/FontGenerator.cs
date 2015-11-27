@@ -8,12 +8,14 @@ namespace TagCloud
         public FontFamily FontFamily { get; set; }
         public bool Log { get; private set; }
         public int MultipleSize { get; private set; }
+
         public FontGenerator(FontFamily fontFamily, bool log = false, int multipleSize = 3)
         {
             FontFamily = fontFamily;
             MultipleSize = multipleSize;
             Log = log;
         }
+
         public Font GetFont(Counter word)
         {
             var cnt = word.Count;

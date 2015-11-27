@@ -9,6 +9,7 @@ namespace TagCloud
         public double B { get; private set; }
         public double A { get; private set; }
         public int Steps { get; private set; }
+
         public SpiralGenerator(double b = 5, double a = 10, int steps = 100)
         {
             B = b;

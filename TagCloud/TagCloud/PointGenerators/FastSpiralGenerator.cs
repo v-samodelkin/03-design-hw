@@ -19,6 +19,7 @@ namespace TagCloud
             СircumferenceDelta = сircumferenceDelta;
             CurrentAngle = 0;
         }
+
         public IEnumerable<Point> GetPoints()
         {
             while (true)
