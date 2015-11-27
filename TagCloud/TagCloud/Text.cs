@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TagCloud
 {
     public class Text
     {
-        public readonly string _data;
+        private readonly string _data;
         public string Data { get { return _data; } }
 
         public Text(string text)
@@ -16,18 +14,18 @@ namespace TagCloud
             _data = text;
         }
 
-        public IEnumerable<Counter> Statistic(Func<String, String> PreLoad)
+        public Statistic Statistic(Func<String, String> preLoad)
         {
-            var gt = SplitText(PreLoad)
+            var gt = SplitText(preLoad)
                 .GroupBy(s => s)
                 .Select(g => new Counter(g.Key, g.Count()))
                 .OrderByDescending(c => c.Count);
-            return gt;
+            return new Statistic(gt);
         }
 
-        public IEnumerable<string> SplitText(Func<String, String> PreLoad)
+        public IEnumerable<string> SplitText(Func<String, String> preLoad)
         {
-            return Data.Split().Where(s => !String.IsNullOrEmpty(s)).Select(s => PreLoad(s));
+            return Data.Split().Where(s => !String.IsNullOrEmpty(s)).Select(s => preLoad(s));
         }
 
         public override string ToString()

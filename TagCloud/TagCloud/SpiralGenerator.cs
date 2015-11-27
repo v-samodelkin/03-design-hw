@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace TagCloud
 {
@@ -20,18 +18,14 @@ namespace TagCloud
 
         public IEnumerable<Point> GetPoints()
         {
-            double angleStep = (float)(Math.PI / Steps);
-            double alpha = 0;
-            double x, y;
-            double fPi = (float)Math.PI;
-            double r;
+            double currentAngle = 0;
             while (true)
             {
-                r = (alpha) / (2 * fPi);
-                x = r * A * (float)Math.Cos(alpha);
-                y = r * B * (float)Math.Sin(alpha);
-                yield return new Point(x, y);
-                alpha += angleStep;
+                double currentRadius = (currentAngle + 2 * Math.PI) / (2 * Math.PI);
+                double currentX = currentRadius * A * (float)Math.Cos(currentAngle);
+                double currentY = currentRadius * B * (float)Math.Sin(currentAngle);
+                yield return new Point(currentX, currentY);
+                currentAngle += (float) (Math.PI / Steps); 
             }
         }
     }

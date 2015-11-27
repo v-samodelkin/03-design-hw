@@ -50,11 +50,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cloud.cs" />
+    <Compile Include="BitmapCloudBuilder.cs" />
     <Compile Include="Counter.cs" />
+    <Compile Include="DefaultGraphicModule.cs" />
+    <Compile Include="TxtFileReader.cs" />
     <Compile Include="FontGenerator.cs" />
+    <Compile Include="ICloudBuilder.cs" />
+    <Compile Include="IData.cs" />
+    <Compile Include="IDataReader.cs" />
+    <Compile Include="IFontGenerator.cs" />
+    <Compile Include="IGraphicModule.cs" />
+    <Compile Include="ISaveModule.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Parser.cs" />
+    <Compile Include="PngSaveModule.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="IPointGenerator.cs" />
     <Compile Include="Program.cs" />
@@ -66,7 +75,8 @@
     </Compile>
     <Compile Include="Rectangle.cs" />
     <Compile Include="SpiralGenerator.cs" />
-    <Compile Include="StableSpiralGenerator.cs" />
+    <Compile Include="FastSpiralGenerator.cs" />
+    <Compile Include="Statistic.cs" />
     <Compile Include="Text.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,56 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
-using System.Drawing.Imaging;
-using CommandLine;
 using Ninject;
 namespace TagCloud
 {
     class Program
     {
-        private const string IMAGE_PATH = "TagCloudImage.png";
-        static string ReadData(string filename)
-        {
-            return System.IO.File.ReadAllText(filename);
-        }
-
-        static Dictionary<String, IPointGenerator> GetPointGenerators()
-        {
-            var d = new Dictionary<String, IPointGenerator>();
-            d["ssg"] = new StableSpiralGenerator();
-            d["sg"] = new SpiralGenerator();
-            d["rssg"] = new StableSpiralGenerator(10, 20, 10);
-            return d;
-        }
-
-        static FontGenerator GetFontGenerator(Options options)
-        {
-            return new FontGenerator(new FontFamily(options.FontFamilyName), options.Log, options.MultipleSize);
-        }
-
+        private static string ImagePath = "\\..\\..\\Image\\TagcCloudImage.png";
         static void Main(string[] args)
         {
-            
+            ImagePath = Environment.CurrentDirectory + ImagePath;
+
             var options = Parser.Parse(args, GetPointGenerators());
             var kernel = CreateKernel(options);
-            var text = new Text(ReadData(options.InputFile));
-            var cloud = new Cloud(text.Statistic(options.PreLoad).ToList(), options, kernel);
-            foreach (var a in text.Statistic(options.PreLoad).Reverse())
-            {
-                Console.WriteLine(String.Format("{0} : {1}", a.Value, a.Count));
-            }
+            var cloud = kernel.Get<ICloudBuilder>();
+
             cloud.GenerateImage();
-            SaveImageFromCloud(cloud);
+            cloud.Build();
+
+            DebugData(kernel.Get<IData>());
         }
 
-        static void SaveImageFromCloud(Cloud cloud)
-        {
-             cloud.Bitmap.Save(IMAGE_PATH, ImageFormat.Png);
-        }
 
         private static IKernel CreateKernel(Options options)
         {
@@ -61,8 +31,36 @@ namespace TagCloud
 
         private static void RegisterServices(IKernel kernel, Options options)
         {
+            kernel.Bind<Options>().ToConstant(options);
+            kernel.Bind<IDataReader>().To<TxtFileReader>();
             kernel.Bind<IPointGenerator>().ToConstant(options.Generator);
-            kernel.Bind<FontGenerator>().ToConstant(GetFontGenerator(options));
+            kernel.Bind<IFontGenerator>().ToConstant(GetFontGenerator(options));
+            kernel.Bind<ISaveModule>().ToConstant(new PngSaveModule(ImagePath));
+            kernel.Bind<IData>().ToConstant(kernel.Get<IDataReader>().ClearData());
+            kernel.Bind<IGraphicModule>().To<DefaultGraphicModule>();
+            kernel.Bind<ICloudBuilder>().To<BitmapCloudBuilder>();
+        }
+
+        private static void DebugData(IData data)
+        {
+            foreach (var a in data.Data)
+            {
+                Console.WriteLine("{0} : {1}", a.Value, a.Count);
+            }
+        }
+
+        static Dictionary<String, IPointGenerator> GetPointGenerators()
+        {
+            var d = new Dictionary<String, IPointGenerator>();
+            d["ssg"] = new FastSpiralGenerator();
+            d["sg"] = new SpiralGenerator();
+            d["rssg"] = new FastSpiralGenerator();
+            return d;
+        }
+
+        static FontGenerator GetFontGenerator(Options options)
+        {
+            return new FontGenerator(new FontFamily(options.FontFamilyName), options.Log, options.MultipleSize);
         }
     }
 }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TagCloud
 {
@@ -12,9 +8,23 @@ namespace TagCloud
         public Point RightDown { get; private set; }
         public Rectangle(Point a, Point b)
         {
+            InitByPoints(a, b);
+        }
+
+
+        public Rectangle(Point center, double width, double height)
+        {
+            double w2 = width/2;
+            double h2 = height/2;
+            InitByPoints(new Point(center.X - w2, center.Y - h2), new Point(center.X + w2, center.Y + h2));
+        }
+
+        private void InitByPoints(Point a, Point b)
+        {
             LeftUp = new Point(Math.Min(a.X, b.X), Math.Min(a.Y, b.Y));
             RightDown = new Point(Math.Max(a.X, b.X), Math.Max(a.Y, b.Y));
         }
+
 
         public Point Centre()
         {

@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ninject;
-using System.Drawing;
+
 namespace TagCloud
 {
     public static class Parser
     {
-        public static Options Parse(string[] args, Dictionary<String, IPointGenerator> PointGenerators)
+        public static Options Parse(string[] args, Dictionary<String, IPointGenerator> pointGenerators)
         {
 
             var opt = new Options();
-            opt.Generator = PointGenerators.First().Value;
+            opt.Generator = pointGenerators.First().Value;
 
 
             for (int i = 0; i < args.Length; i++)
@@ -26,7 +23,7 @@ namespace TagCloud
                         break;
                     case "-g":
                     case "--gen":
-                        opt.Generator = PointGenerators[args[++i]];
+                        opt.Generator = pointGenerators[args[++i]];
                         break;
                     case "-w":
                     case "--width":
