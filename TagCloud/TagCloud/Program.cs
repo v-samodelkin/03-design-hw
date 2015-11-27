@@ -6,11 +6,9 @@ namespace TagCloud
 {
     class Program
     {
-        private static string ImagePath = "\\..\\..\\Image\\TagcCloudImage.png";
+        private const string ImagePath = "TagCloudImage.png";
         static void Main(string[] args)
         {
-            ImagePath = Environment.CurrentDirectory + ImagePath;
-
             var options = Parser.Parse(args, GetPointGenerators());
             var kernel = CreateKernel(options);
             var cloud = kernel.Get<ICloudBuilder>();
@@ -38,7 +36,7 @@ namespace TagCloud
             kernel.Bind<ISaveModule>().ToConstant(new PngSaveModule(ImagePath));
             kernel.Bind<IData>().ToConstant(kernel.Get<IDataReader>().ClearData());
             kernel.Bind<IGraphicModule>().To<DefaultGraphicModule>();
-            kernel.Bind<ICloudBuilder>().To<BitmapCloudBuilder>();
+            kernel.Bind<ICloudBuilder>().To<GraphicCloudBuilder>();
         }
 
         private static void DebugData(IData data)

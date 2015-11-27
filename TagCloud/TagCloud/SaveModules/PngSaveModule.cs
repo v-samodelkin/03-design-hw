@@ -15,9 +15,9 @@ namespace TagCloud
             ImagePath = imagePath;
         }
 
-        public void Save(BitmapCloudBuilder bitmapCloud)
+        public void Save(GraphicCloudBuilder graphicCloud)
         {
-            bitmapCloud.GraphicModule.Bitmap.Save(ImagePath, ImageFormat.Png);
+            graphicCloud.GraphicModule.Bitmap.Save(ImagePath, ImageFormat.Png);
         }
     }
 }

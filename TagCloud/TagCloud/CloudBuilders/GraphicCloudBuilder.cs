@@ -4,7 +4,7 @@ using System.Linq;
 using Ninject;
 namespace TagCloud
 {
-    class BitmapCloudBuilder : ICloudBuilder
+    class GraphicCloudBuilder : ICloudBuilder
     {
         public List<Rectangle> Rectangles { get; private set; }
         [Inject]
@@ -17,7 +17,7 @@ namespace TagCloud
         public IGraphicModule GraphicModule { get; set; }
         [Inject]
         public ISaveModule SaveModule { get; set; }
-        public BitmapCloudBuilder()
+        public GraphicCloudBuilder()
         {
             Rectangles = new List<Rectangle>();    
         }

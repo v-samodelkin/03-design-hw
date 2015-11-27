@@ -9,6 +9,6 @@ namespace TagCloud
 {
     interface ISaveModule
     {
-        void Save(BitmapCloudBuilder bitmapCloud);
+        void Save(GraphicCloudBuilder graphicCloud);
     }
 }

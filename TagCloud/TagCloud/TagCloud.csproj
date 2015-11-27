@@ -50,22 +50,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BitmapCloudBuilder.cs" />
+    <Compile Include="CloudBuilders\GraphicCloudBuilder.cs" />
     <Compile Include="Counter.cs" />
-    <Compile Include="DefaultGraphicModule.cs" />
-    <Compile Include="TxtFileReader.cs" />
-    <Compile Include="FontGenerator.cs" />
-    <Compile Include="ICloudBuilder.cs" />
+    <Compile Include="GraphicModules\DefaultGraphicModule.cs" />
+    <Compile Include="DataReaders\TxtFileReader.cs" />
+    <Compile Include="FontGenerators\FontGenerator.cs" />
+    <Compile Include="CloudBuilders\ICloudBuilder.cs" />
     <Compile Include="IData.cs" />
-    <Compile Include="IDataReader.cs" />
-    <Compile Include="IFontGenerator.cs" />
-    <Compile Include="IGraphicModule.cs" />
-    <Compile Include="ISaveModule.cs" />
+    <Compile Include="DataReaders\IDataReader.cs" />
+    <Compile Include="FontGenerators\IFontGenerator.cs" />
+    <Compile Include="GraphicModules\IGraphicModule.cs" />
+    <Compile Include="SaveModules\ISaveModule.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Parser.cs" />
-    <Compile Include="PngSaveModule.cs" />
+    <Compile Include="SaveModules\PngSaveModule.cs" />
     <Compile Include="Point.cs" />
-    <Compile Include="IPointGenerator.cs" />
+    <Compile Include="PointGenerators\IPointGenerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -74,8 +74,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Rectangle.cs" />
-    <Compile Include="SpiralGenerator.cs" />
-    <Compile Include="FastSpiralGenerator.cs" />
+    <Compile Include="PointGenerators\SpiralGenerator.cs" />
+    <Compile Include="PointGenerators\FastSpiralGenerator.cs" />
     <Compile Include="Statistic.cs" />
     <Compile Include="Text.cs" />
   </ItemGroup>
